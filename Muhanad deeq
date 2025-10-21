@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard-ka Dhakhtarka - Mogadisho Specialist Hospital</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0077b6">
+    <style>
+        /* ==================== CSS-ka Xirfadleyda Dhakhtarka (Updated) ==================== */
+        :root {
+            /* Midabada Casriga ah ee Caafimaadka */
+            --midab-buluug-caafimaad: #0077b6; /* Classic Blue */
+            --midab-buluug-fudud: #90e0ef; /* Sky Blue/Cyan */
+            --midab-caddaan-nadiif: #ffffff;
+            --midab-cawl-fudud: #f8f9fa; 
+            --midab-qoraalka-madow: #212529; 
+            --midab-xuduud: #dee2e6;
+            --midab-guul: #28a745;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--midab-cawl-fudud); display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: var(--midab-buluug-caafimaad); color: var(--midab-caddaan-nadiif); padding: 20px 0; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); position: sticky; top: 0; height: 100vh; }
+        .sidebar h2 { text-align: center; margin-bottom: 30px; border-bottom: 1px solid var(--midab-buluug-fudud); padding-bottom: 15px; font-size: 1.4em; }
+        .sidebar nav a { display: block; padding: 15px 20px; text-decoration: none; color: var(--midab-caddaan-nadiif); transition: background-color 0.3s; border-left: 5px solid transparent; }
+        .sidebar nav a:hover, .sidebar nav .active { background-color: #00b4d8; border-left: 5px solid var(--midab-buluug-fudud); color: var(--midab-qoraalka-madow); }
+        .main-content { flex-grow: 1; padding: 30px; background-color: var(--midab-caddaan-nadiif); }
+        .card-container { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px; }
+        .card { background-color: var(--midab-cawl-fudud); padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); border-top: 5px solid var(--midab-buluug-caafimaad); }
+        .card h3 { color: var(--midab-qoraalka-madow); margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid var(--midab-xuduud); }
+        .patient-info p { margin: 8px 0; font-size: 0.95em; }
+        .patient-info strong { color: var(--midab-buluug-caafimaad); display: inline-block; width: 120px; }
+        label { display: block; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: var(--midab-qoraalka-madow); }
+        textarea, select, input[type="text"] { width: 100%; padding: 10px; border: 1px solid var(--midab-xuduud); border-radius: 5px; box-sizing: border-box; resize: vertical; }
+        .medicine-section, .lab-section { display: flex; gap: 15px; margin-top: 10px; }
+        .medicine-section input, .lab-section input { flex-grow: 1; }
+        .add-btn { background-color: var(--midab-buluug-fudud); color: var(--midab-qoraalka-madow); padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; transition: background-color 0.3s; }
+        .add-btn:hover { background-color: #74c6cc; }
+        .submit-btn { background-color: var(--midab-buluug-caafimaad); color: var(--midab-caddaan-nadiif); padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 20px; width: 100%; transition: background-color 0.3s; }
+        .submit-btn:hover { background-color: #005f99; }
+        #confirmation-result { margin-top: 30px; padding: 30px; background-color: var(--midab-cawl-fudud); border: 2px solid var(--midab-guul); border-radius: 10px; display: none; }
+        #confirmation-result h3 { color: var(--midab-guul); text-align: center; }
+        .review-section p, .review-section ul { background-color: var(--midab-caddaan-nadiif); padding: 10px; border-radius: 5px; margin-bottom: 10px; border-left: 4px solid var(--midab-buluug-caafimaad); }
+        .review-section strong { color: var(--midab-buluug-caafimaad); }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>M.S.H. Dhakhtar</h2>
+        <nav>
+            <a href="#" class="active">Bukaan Soo Gale</a>
+            <a href="#">Bukaanadii Hore</a>
+            <a href="#">Schedule-ka</a>
+            <a href="#">Laboratory (Lab)</a>
+            <a href="#">Logout</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Bukaan Soo Gala (Active Patient)</h1>
+
+        <div class="card-container">
+            
+            <div class="card patient-info">
+                <h3>Xogta Bukaan-socodka</h3>
+                <p><strong>Magaca:</strong> Cali Cabdi Nuur</p>
+                <p><strong>ID:</strong> PNT-00983</p>
+                <p><strong>Da'da:</strong> 35 Sano</p>
+                <p><strong>Dhakhtarkii Hore:</strong> Dr. Faadumo</p>
+                
+                <h3 style="margin-top: 20px;">Taariikhda Caafimaadka</h3>
+                <p style="color: red;">Diinfaar (Allergy) ku leh <strong>Penicillin</strong></p>
+                <p><strong>Xanuunka Raaga:</strong> Sonkorow (Diabetes Type 2)</p>
+                <p><strong>Qoraalkii Ugu Dambeeyay (2024-05-10):</strong> Cudurka Neef-qabadyo-guud oo fudud. Daawada: Paracetamol.</p>
+            </div>
+            
+            <div class="card treatment-form">
+                <h3>Go'aanka Daaweynta & Dawooyinka</h3>
+                <form id="treatment-form">
+                    
+                    <label for="ogaanshaha_cudurkan">Ogaanshaha Cudurka (Diagnosis - ICD-10 Code):</label>
+                    <textarea id="ogaanshaha_cudurkan" name="diagnosis" rows="3" required placeholder="Tusaale: Cudurka Neef-qabadyo-guud - J80.1."></textarea>
+                    
+                    <label for="daweynta_guud">Talooyinka Daaweynta (Treatment Plan):</label>
+                    <textarea id="daweynta_guud" name="treatment" rows="4" required placeholder="Tusaale: Nasasho, cabbitaan badan, ama in la sameeyo tijaabo dheeraad ah (X-ray)."></textarea>
+                    
+                    <label>Qorista Daawooyinka (Prescription):</label>
+                    <div id="medicine-fields">
+                        <div class="medicine-section">
+                            <input type="text" name="medicine_name" placeholder="Magaca Daawada">
+                            <input type="text" name="medicine_dosage" placeholder="Qiyaasta & Tirada (Dosage & Qty)">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addDynamicField('medicine')">+ Ku Dar Daawada</button>
+                    
+                    <label style="margin-top: 25px;">Warqadda Tijaabada Shaybaarka (Lab Request):</label>
+                    <div id="lab-fields">
+                         <div class="lab-section">
+                            <input type="text" name="lab_test" placeholder="Magaca Tijaabada (tusaale: CBC, Liver Panel)">
+                         </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addDynamicField('lab')">+ Ku Dar Tijaabada Shaybaarka</button>
+
+                    <label for="xarays">Xarays/Jifis (Admission):</label>
+                    <select id="xarays" name="admission">
+                        <option value="Maya">Maya, Soo Laabo (Follow-up)</option>
+                        <option value="Jifis">Haa, Jifis (Admission)</option>
+                        <option value="Qalliin">Haa, Qalliin (Surgery)</option>
+                    </select>
+
+                    <button type="submit" class="submit-btn">Dir Go'aanka & Xaqiiji</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="confirmation-result">
+            </div>
+
+    </div>
+
+<script>
+    // ==================== JavaScript-ka Shaqada (Dhammaystiran) ====================
+    
+    // Function: Ku darida sanduuq cusub (Dawo ama Lab)
+    function addDynamicField(type) {
+        const containerId = type === 'medicine' ? 'medicine-fields' : 'lab-fields';
+        const container = document.getElementById(containerId);
+        const newSection = document.createElement('div');
+        newSection.classList.add(type === 'medicine' ? 'medicine-section' : 'lab-section');
+        
+        if (type === 'medicine') {
+            newSection.innerHTML = `
+                <input type="text" name="medicine_name" placeholder="Magaca Daawada Cusub">
+                <input type="text" name="medicine_dosage" placeholder="Qiyaasta Cusub & Tirada">
+            `;
+        } else { // type === 'lab'
+            newSection.innerHTML = `
+                <input type="text" name="lab_test" placeholder="Magaca Tijaabada Cusub">
+            `;
+        }
+        container.appendChild(newSection);
+    }
+
+    // Function: Maareynta dirista foomka iyo soo bandhigidda go'aanka
+    document.getElementById('treatment-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const resultDiv = document.getElementById('confirmation-result');
+        
+        // 1. Soo qaado xogta muhiimka ah
+        const diagnosis = form.diagnosis.value;
+        const treatment = form.treatment.value;
+        const admission = form.admission.options[form.admission.selectedIndex].text;
+        
+        // 2. Soo qaado dhammaan dawooyinka la qoray
+        const medicineNames = Array.from(form.querySelectorAll('input[name="medicine_name"]')).map(input => input.value).filter(val => val.trim() !== '');
+        const medicineDosages = Array.from(form.querySelectorAll('input[name="medicine_dosage"]')).map(input => input.value).filter(val => val.trim() !== '');
+        
+        // 3. Soo qaado dhammaan Tijaabooyinka Shaybaarka
+        const labTests = Array.from(form.querySelectorAll('input[name="lab_test"]')).map(input => input.value).filter(val => val.trim() !== '');
+
+        // 4. Diyaarinta Summary-ga Dawooyinka
+        let medicineSummary = '';
+        if (medicineNames.length > 0) {
+            medicineSummary = '<ul style="list-style: square;">';
+            medicineNames.forEach((name, index) => {
+                const dosage = medicineDosages[index] || 'Lama Qorin';
+                medicineSummary += `<li><strong>${name}</strong>: ${dosage}</li>`;
+            });
+            medicineSummary += '</ul>';
+        } else {
+            medicineSummary = '<p style="color: #0077b6; font-weight: bold;">Lama qorin wax daawo ah.</p>';
+        }
+
+        // 5. Diyaarinta Summary-ga Lab-ka
+        let labSummary = '';
+        if (labTests.length > 0) {
+            labSummary = '<ul style="list-style: square;">';
+            labTests.forEach(test => {
+                labSummary += `<li>${test}</li>`;
+            });
+            labSummary += '</ul>';
+        } else {
+            labSummary = '<p style="color: #0077b6; font-weight: bold;">Lama codsan wax tijaabo Shaybaar ah.</p>';
+        }
+
+        // 6. Abuur soo koobidda xaqiijinta (Final Review)
+        resultDiv.innerHTML = `
+            <h3>Go'aanka si Guul ah ayaa loo diray! ✅</h3>
+            <p style="text-align: center;">Fadlan Xaqiiji Macluumaadka La Gudbiyay (Bukaan: Cali Cabdi Nuur)</p>
+            <div class="review-section">
+                <p><strong>Ogaanshaha Cudurka:</strong> <br>${diagnosis}</p>
+                <p><strong>Talooyinka Daaweynta:</strong> <br>${treatment}</p>
+                <p><strong>Go'aanka Jifiska:</strong> ${admission}</p>
+                
+                <h4 style="color: var(--midab-buluug-caafimaad);">Dawooyinka La Qoray:</h4>
+                ${medicineSummary}
+                
+                <h4 style="color: var(--midab-buluug-caafimaad);">Warqadda Tijaabada Shaybaarka:</h4>
+                ${labSummary}
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: ${getComputedStyle(document.documentElement).getPropertyValue('--midab-buluug-caafimaad')};">Warqadda waxaa loo gudbiyay qaybaha khuseeya.</p>
+        `;
+
+        // Soo bandhig natiijada
+        resultDiv.style.display = 'block';
+        
+        // Qari foomka si loo muujiyo in shaqadii dhamaatay
+        form.style.display = 'none'; 
+    });
+    
+    // ==================== Service Worker Diiwaangelinta ====================
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('Service Worker: Diiwaangelinta waa la aqbalay', reg.scope))
+                .catch(err => console.log('Service Worker: Diiwaangelinta waa fashilantay', err));
+        });
+    }
+
+</script>
+
+</body>
+</html>
